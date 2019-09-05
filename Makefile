@@ -37,6 +37,8 @@ setup-helm:
 	helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
 kafka:
 	helm install --name kafka -f kafka-helm-values.yaml incubator/kafka
+clean-kafka:
+	helm remove kafka
 
 # Keyfile for each pod
 service-account:aggregator-service-account
@@ -45,3 +47,7 @@ aggregator-service-account:
 		--iam-account ${@}@${GCP_PROJECT}.iam.gserviceaccount.com
 	-kubectl create secret generic ${@} --from-file=${KEY_FILE}
 	rm ${KEY_FILE}
+
+# Debug : Kafka endpoint
+endpoint:
+	kubectl describe svc kafka-0-external
