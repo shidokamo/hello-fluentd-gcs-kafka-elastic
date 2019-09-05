@@ -20,10 +20,10 @@ data:
       </store>
       <store>
         @type kafka2
-        brokers kafka:9092
+        brokers kafka-headless:9092
         use_event_time true
 
-        <buffer topic>
+        <buffer topic,tag>
           @type file
           path ./kafka-buffer
           flush_interval 1s
@@ -34,6 +34,7 @@ data:
         </format>
 
         topic_key logger
+        default_topic logger
       </store>
       <store>
         @type gcs
