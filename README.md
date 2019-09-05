@@ -13,7 +13,7 @@ GKE を用いたログ基盤のサンプルです。
 * Aggregator は、Kafka にログをパブリッシュします。
 * Aggregator は、Elastic の index にログを入力します。
 
-## Requirements
+## Requirements (イメージ）
 事前に、以下の２つのイメージをビルドしておく必要があります。
 
 * [fluentd-image](https://github.com/shidokamo/fluentd-image)
@@ -24,9 +24,32 @@ gcr.io のコンテナレジストリ以外を使う場合は、イメージの�
 
 また、Elasticsearch のホストを用意しておく必要があります。
 
-## サービスアカウントの設定
+## Requirements （サービスアカウントの設定）
 `aggregator` という名前で、サービスアカウントを発行し、ストレージオブジェクトの作成権限を与えてください。
 このアカウントが適切に設定されていないと、GCS へのバケット作成に失敗し、エラーとなります。
+
+## Requirements （Helm）
+Helm をインストールしておく必要があります。
+
+## 手順
+クラスタを作成します。既存のクラスタがある場合はそちらを使っても構いません。
+
+```
+make setup-cluster
+```
+
+クラスタに Helm の Tiller をインストールします。
+
+```
+make setup-helm
+```
+
+Kafka をデプロイします。起動にかなり時間がかかるため、先にデプロイするのが望ましいです。
+
+```
+make kafka
+```
+
 
 ## デプロイ
 ```
