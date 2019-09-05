@@ -27,6 +27,7 @@ key:
 	-kubectl create secret generic gcs-key --from-file=${KEY_FILE}
 	rm ${KEY_FILE}
 
+# Setups required once before deploying loggers
 setup-cluster:
 	gcloud container clusters create logging \
 		--disk-size=100 \
@@ -36,5 +37,9 @@ setup-cluster:
 		--enable-stackdriver-kubernetes \
 		--enable-autoscaling \
 		--max-nodes=6
-
-		
+setup-helm:
+	kubectl apply -f create-helm-service-account.yaml
+	helm init --history-max 200 --service-account tiller
+	helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
+kafka:
+	helm install --name kafka -f kafka-helm-values.yaml incubator/kafka
