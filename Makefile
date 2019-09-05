@@ -5,9 +5,10 @@ TEST_LOGGER_IMAGE := ${PREFIX}/test-logger:v2.0.0
 FLUENTD_IMAGE := ${PREFIX}/fluentd:v1.7.0c
 GCS_BUCKET := ${GCP_PROJECT}-aggregator
 KEY_FILE := key.json
+ELASTIC_HOST :=
+include env
 export
 
-# Make sure to remove key file after deployment
 deploy:clean
 	kubectl apply -f aggregator-fluentd-configmap.yaml
 	cat aggregator-deployment.yaml | envsubst |  kubectl apply -f -
