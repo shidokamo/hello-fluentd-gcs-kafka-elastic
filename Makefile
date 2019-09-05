@@ -8,7 +8,7 @@ KEY_FILE := key.json
 export
 
 # Make sure to remove key file after deployment
-deploy:clean key
+deploy:clean
 	cat aggregator-fluentd-configmap.yaml | envsubst | kubectl apply -f -
 	cat aggregator-deployment.yaml | envsubst |  kubectl apply -f -
 	kubectl apply -f aggregator-service.yaml
