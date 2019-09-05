@@ -19,6 +19,23 @@ data:
         @type stdout
       </store>
       <store>
+        @type kafka2
+        brokers kafka:9092
+        use_event_time true
+
+        <buffer topic>
+          @type file
+          path ./kafka-buffer
+          flush_interval 1s
+        </buffer>
+
+        <format>
+          @type json
+        </format>
+
+        topic_key logger
+      </store>
+      <store>
         @type gcs
         project "#{ENV['GCP_PROJECT']}"
         bucket "#{ENV['GCS_BUCKET']}"
