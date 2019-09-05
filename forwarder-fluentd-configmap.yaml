@@ -38,9 +38,11 @@ data:
         host aggregator
         port 24224
       </server>
-      <buffer>
-        @type memory
-        flush_mode immediate
+      <buffer tag>
+        @type file
+        path ./fluentd-buffer
+        flush_mode interval
+        flush_interval 1s
       </buffer>
     </match>
 
