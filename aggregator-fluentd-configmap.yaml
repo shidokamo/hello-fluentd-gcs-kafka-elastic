@@ -34,5 +34,8 @@ data:
           timekey_use_utc true
           flush_mode lazy
         </buffer>
+        <format>
+          @type json
+        </format>
       </store>
     </match>
