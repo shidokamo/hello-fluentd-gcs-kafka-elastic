@@ -35,10 +35,10 @@ setup-helm:
 	kubectl apply -f create-helm-service-account.yaml
 	helm init --history-max 200 --service-account tiller
 	helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
-kafka:
+kafka:clean-kafka
 	helm install --name kafka -f kafka-helm-values.yaml incubator/kafka
 clean-kafka:
-	helm remove kafka
+	-helm delete --purge kafka
 
 # Keyfile for each pod
 service-account:aggregator-service-account
