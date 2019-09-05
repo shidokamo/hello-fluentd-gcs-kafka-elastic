@@ -3,7 +3,7 @@ GCP_PROJECT:= $(shell gcloud config get-value project)
 PREFIX := ${IMAGE_REPOSITORY}/${GCP_PROJECT}
 TEST_LOGGER_IMAGE := ${PREFIX}/test-logger:v2.0.0
 FLUENTD_IMAGE := ${PREFIX}/fluentd:v1.7.0b
-GCS_BUCKET := ${PROJECT}-aggregator
+GCS_BUCKET := ${GCP_PROJECT}-aggregator
 KEY_FILE := key.json
 export
 
