@@ -9,7 +9,7 @@ KEY_FILE := key.json
 export
 
 # Make sure to remove key file after deployment
-deploy:key clean
+deploy:clean key 
 	cat aggregator-fluentd-configmap.yaml | envsubst | kubectl apply -f -
 	cat aggregator-deployment.yaml | envsubst |  kubectl apply -f -
 	kubectl apply -f aggregator-service.yaml
@@ -26,3 +26,15 @@ key:
 		--iam-account ${SERVICE_ACCOUNT_NAME}@${GCP_PROJECT}.iam.gserviceaccount.com
 	-kubectl create secret generic gcs-key --from-file=${KEY_FILE}
 	rm ${KEY_FILE}
+
+setup-cluster:
+	gcloud container clusters create logging \
+		--disk-size=100 \
+		--machine-type=n1-standard-1 \
+		--no-enable-cloud-logging \
+		--no-enable-cloud-monitoring \
+		--enable-stackdriver-kubernetes \
+		--enable-autoscaling \
+		--max-nodes=6
+
+		
