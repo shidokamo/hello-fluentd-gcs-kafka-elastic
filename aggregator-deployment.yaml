@@ -40,4 +40,4 @@ spec:
           name: aggregator-fluentd-config
       - name: google-cloud-key
         secret:
-          secretName: gcs-key
+          secretName: aggregator-service-account
