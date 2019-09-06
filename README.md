@@ -113,9 +113,10 @@ GCS に、PROJECT_NAME-aggregator という名前のバケットができてお�
 make check-gcs
 ```
 
+## Elasticsearch の確認
+インデックスが作成されているかどうか確認してください。名前は、`logstash-*` になります。
+
 ## クリーンナップ
 ```
-make clean
-make clean-kafka
-make clean-cluster
+make clean-all
 ```

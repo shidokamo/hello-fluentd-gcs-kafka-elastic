@@ -59,6 +59,8 @@ aggregator-service-account:
 	-kubectl create secret generic ${@} --from-file=${KEY_FILE}
 	rm ${KEY_FILE}
 
+clean-all: clean-gcs clean-cluster
+
 # Debug : Kafka endpoint
 check-endpoint:
 	kubectl describe svc kafka-0-external
