@@ -31,8 +31,21 @@ gcr.io のコンテナレジストリ以外を使う場合は、イメージの�
 ## Requirements （Helm）
 Helm をインストールしておく必要があります。
 
+## ネットワークの準備
+以下のコマンドで、新しいサブネットと２つのセカンダリ範囲を作成してください。
+もし、`10.1.0.0/16` をすでに使用している場合は、別の範囲を指定してください。
+
+```
+gcloud compute networks subnets create subnet-a \
+  --network default \
+  --range 10.1.0.0/16 \
+  --secondary-range pod-range=172.16.128.0/19,svc-range=172.16.160.0/22
+```
+
+その後、172.16.128.0/19 をソースとする全ての通信を許可するようにファイアウォールを更新してください。
+
 ## 手順
-クラスタを作成します。既存のクラスタがある場合はそちらを使っても構いません。
+クラスタを作成します。
 
 ```
 make setup-cluster
@@ -53,7 +66,7 @@ make kafka
 サービスアカウント用の鍵情報を作成します。
 
 ```
-make keyfile
+make setup-service-account
 ```
 
 
