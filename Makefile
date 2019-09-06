@@ -23,15 +23,20 @@ clean:
 	-kubectl delete configmap aggregator-fluentd-config
 
 # Setups required once before deploying loggers
+setup:setup-cluster setup-helm setup-service-account
 setup-cluster:
 	gcloud container clusters create logging \
 		--disk-size=100 \
 		--machine-type=n1-standard-1 \
 		--no-enable-cloud-logging \
 		--no-enable-cloud-monitoring \
-		--enable-stackdriver-kubernetes \
-		--enable-autoscaling \
-		--max-nodes=6
+		--enable-ip-alias
+		--cluster-ipv4-cidr=10.xxxxxxxxx/xx \
+		--services-ipv4-cidr=10.xxxxxxxxx/xx
+#		--subnetwork default
+#		--enable-stackdriver-kubernetes
+# 		--enable-autoscaling
+# 		--max-nodes=6
 setup-helm:
 	kubectl apply -f create-helm-service-account.yaml
 	helm init --history-max 200 --service-account tiller
@@ -44,9 +49,8 @@ clean-cluster:
 	gcloud container clusters delete logging
 clean-gcs:
 	gsutil -m rm -r gs://${GCS_BUCKET}
-
 # Keyfile for each pod
-service-account:aggregator-service-account
+setup-service-account:aggregator-service-account
 aggregator-service-account:
 	gcloud iam service-accounts keys create ${KEY_FILE} \
 		--iam-account ${@}@${GCP_PROJECT}.iam.gserviceaccount.com
