@@ -30,9 +30,11 @@ setup-cluster:
 		--machine-type=n1-standard-1 \
 		--no-enable-cloud-logging \
 		--no-enable-cloud-monitoring \
-		--enable-ip-alias
-		--cluster-ipv4-cidr=10.xxxxxxxxx/xx \
-		--services-ipv4-cidr=10.xxxxxxxxx/xx
+		--enable-ip-alias \
+		--network=default \
+		--subnetwork=subnet-a \
+		--cluster-secondary-range-name=pod-range \
+		--services-secondary-range-name=svc-range
 #		--subnetwork default
 #		--enable-stackdriver-kubernetes
 # 		--enable-autoscaling
