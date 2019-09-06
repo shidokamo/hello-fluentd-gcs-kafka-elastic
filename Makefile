@@ -40,6 +40,10 @@ kafka:clean-kafka
 	helm install --name kafka -f kafka-helm-values.yaml incubator/kafka
 clean-kafka:
 	-helm delete --purge kafka
+clean-cluster:
+	gcloud container clusters delete logging
+clean-gcs:
+	gsutil -m rm -r gs://${GCS_BUCKET}
 
 # Keyfile for each pod
 service-account:aggregator-service-account
@@ -50,5 +54,8 @@ aggregator-service-account:
 	rm ${KEY_FILE}
 
 # Debug : Kafka endpoint
-endpoint:
+check-endpoint:
 	kubectl describe svc kafka-0-external
+# Debug : GCS
+check-gcs:
+	gsutil ls gs://${GCS_BUCKET}

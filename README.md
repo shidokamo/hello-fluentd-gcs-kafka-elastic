@@ -73,15 +73,36 @@ Pod 内に1つのコンテナを起動します。
 * aggregator コンテナは、GCS へローテートを行いながらログを出力し続けます。
 * aggregator コンテナは、標準出力へも同時に出力を行います。
 
-## ログの確認
-Fluentd の Aggregator コンテナの最終出力結果は以下のように確認できます。
+## Aggregator のログの確認
+Fluentd の Aggregator コンテナの出力結果は以下のように確認できます。
 Pod の名前は、`kubectl get pod` で得たものに置き換えてください。
 
 ```
 kubectl logs aggregator-59cb4fdbc6-6kd4s
 ```
 
+## Kafka の Topic の確認
+Kafka の Broker のエンドポイントを以下のようにして探してください。
+```
+make check-endpoint
+```
+
+Kafkacat で NodePort から Topic を読み込んで、ログが流れていることを確認してください。
+```
+kafkacat -b YOUR_ENDPOINT_IP -C -t logger
+```
+
+## GCS のバケットの確認
+GCS に、PROJECT_NAME-aggregator という名前のバケットができており、ログが出力されているのを
+確認してください。
+
+```
+make check-gcs
+```
+
 ## クリーンナップ
 ```
 make clean
+make clean-kafka
+make clean-cluster
 ```
