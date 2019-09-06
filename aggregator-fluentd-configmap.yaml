@@ -37,6 +37,24 @@ data:
         default_topic logger
       </store>
       <store>
+        @type elasticsearch
+        host "#{ENV['ELASTIC_HOST']}"
+        port 9200
+        index_name ${tag}.%Y%m%d%H
+        logstash_format true
+        include_timestamp true
+
+        <buffer tag,time>
+          @type file
+          path ./buffer
+          timekey 1h
+          timekey_wait 5m
+          timekey_use_utc true
+          flush_mode interval
+          flush_interval 30s
+        </buffer>
+      </store>
+      <store>
         @type gcs
         project "#{ENV['GCP_PROJECT']}"
         bucket "#{ENV['GCS_BUCKET']}"

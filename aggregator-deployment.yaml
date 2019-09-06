@@ -35,6 +35,8 @@ spec:
           value: ${GCP_PROJECT}
         - name: GCS_BUCKET
           value: ${GCS_BUCKET}
+        - name: ELASTIC_HOST
+          value: ${ELASTIC_HOST}
       volumes:
       - name: varlog
         emptyDir: {}
