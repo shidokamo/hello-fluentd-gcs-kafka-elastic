@@ -1,11 +1,13 @@
 IMAGE_REPOSITORY=gcr.io
 GCP_PROJECT:= $(shell gcloud config get-value project)
 PREFIX := ${IMAGE_REPOSITORY}/${GCP_PROJECT}
-TEST_LOGGER_IMAGE := ${PREFIX}/test-logger:v2.0.0
+TEST_LOGGER_IMAGE := ${PREFIX}/test-logger:v3.0.0
 FLUENTD_IMAGE := ${PREFIX}/fluentd:v1.7.0c
 GCS_BUCKET := ${GCP_PROJECT}-aggregator
 KEY_FILE := key.json
 ELASTIC_HOST :=
+LOG_INTERVAL := 1
+LOG_LIMIT := 10
 include env
 export
 
