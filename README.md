@@ -85,7 +85,12 @@ make
 Pod 内に2つのコンテナを起動します。
 * logger コンテナは、`/var/log/app.log` へログローテートを行いながらログを出力し続けます。
 * sidecar コンテナは、`/var/log/app.log` を監視し、得たログを Aggregator に Forward します。
-* Pod は 3 つ起動されます。
+* Pod はデフォルトで 3 つ起動されます。以下のように変更可能
+  * `make deploy NUM_FORWARDER=1`
+* Log の出力数に上限を設けるには以下のようにします。
+  * `make deploy LOG_LIMIT=100`
+* Log の出力間隔を変更するには以下のようにします。
+  * `make deploy LOG_INTERVAL=0.25`
 
 ## Forwarder の動作
 Pod 内に1つのコンテナを起動します。
