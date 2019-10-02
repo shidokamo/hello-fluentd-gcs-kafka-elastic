@@ -8,6 +8,7 @@ KEY_FILE := key.json
 ELASTIC_HOST :=
 LOG_INTERVAL := 1
 LOG_LIMIT := 10
+NUM_FORWARDER := 3
 include env
 export
 

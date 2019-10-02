@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: forwarder
 spec:
-  replicas: 3
+  replicas: ${NUM_FOWARDER}
   selector:
     matchLabels:
       app: forwarder
